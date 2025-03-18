@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-demo-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: spring-demo-app
+  template:
+    metadata:
+      labels:
+        app: spring-demo-app
+    spec:
+      containers:
+        - name: spring-demo-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+          volumeMounts:
+            - name: app-storage
+              mountPath: /data
+      volumes:
+        - name: app-storage

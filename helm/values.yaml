@@ -1,0 +1,11 @@
+replicaCount: 2
+image:
+  repository: andaj/spring-app-dev
+  tag: latest
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPU: 80
+persistence:
+  size: 10Gi
+  storageClass: gp2
